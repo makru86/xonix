@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ball Animation</title>
+    <style>
+        body, html {
+            height: 100%;
+            margin: 0;
+            overflow: hidden; /* Prevents scrolling */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+
+        #ball {
+            width: 50px;
+            height: 50px;
+            background-color: red;
+            border-radius: 50%;
+            position: absolute;
+        }
+    </style>
+</head>
+<body>
+    <div id="ball"></div>
+    <script>
+        const ball = document.getElementById('ball');
+        let posX = 0, posY = 0; // Initial position
+        let velocityX = 2, velocityY = 2; // Speed of the ball
+        let directionX = 1, directionY = 1; // Direction of movement
+
+        function updateBallPosition() {
+            // Update position
+            posX += velocityX * directionX;
+            posY += velocityY * directionY;
+
+            // Check for border collision to reflect the ball
+            if (posX + 50 >= window.innerWidth || posX <= 0) {
+                directionX *= -1; // Reverse direction on x-axis
+            }
+            if (posY + 50 >= window.innerHeight || posY <= 0) {
+                directionY *= -1; // Reverse direction on y-axis
+            }
+
+            // Apply position
+            ball.style.left = `${posX}px`;
+            ball.style.top = `${posY}px`;
+
+            requestAnimationFrame(updateBallPosition); // Recursively animate
+        }
+
+        updateBallPosition(); // Start animation
+    </script>
+</body>
+</html>
